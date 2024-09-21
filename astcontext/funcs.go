@@ -242,6 +242,11 @@ func (f Funcs) EnclosingFunc(offset int) (*Func, error) {
 			start = fn.Doc.Offset
 		}
 
+		// function without body
+		if fn.Rbrace == nil {
+			continue
+		}
+
 		// one liner, start from the beginning to make it easier
 		if fn.FuncPos.Line == fn.Rbrace.Line {
 			start = fn.FuncPos.Offset - fn.FuncPos.Column
